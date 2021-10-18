@@ -60,13 +60,13 @@
       "git add --force"
     ]
   },
-  "pre-commit": "lint:staged",
   "resolutions": {
     "babel-core": "7.0.0-bridge.0"
   },
   "dependencies": {
     "@babel/polyfill": "7.4.3",
     "@material-ui/core": "^4.10.2",
+    "@material-ui/styles": "^4.11.4",
     "@wojtekmaj/react-daterange-picker": "^3.0.0",
     "alasql": "^0.6.2",
     "axios": "^0.21.4",
@@ -163,7 +163,6 @@
     "null-loader": "0.1.1",
     "offline-plugin": "5.0.6",
     "plop": "^2.7.4",
-    "pre-commit": "1.2.2",
     "prettier": "1.17.0",
     "react-app-polyfill": "0.2.2",
     "react-test-renderer": "16.8.6",

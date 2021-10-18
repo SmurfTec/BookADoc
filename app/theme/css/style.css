@@ -7728,24 +7728,42 @@ footer a {
 }
 
 .testimonial_wrap {
-  padding: 117px 130px 165px 0;
+  padding: 15px;
 }
+
+@media (min-width: 768px) {
+  .testimonial_wrap {
+    padding: 117px 130px 165px 0;
+  }
+}
+
 .testimonial-section {
   /* background-color: #a3e1c2; ---> old color */
   background-color: #e8e8e8;
-  padding: 164px;
   margin-top: 50px;
   margin-bottom: 50px;
   border-radius: 10px;
   min-height: 95vh;
-  padding-left: 100px;
-}
-.testimonial-section .we_stand {
-  font-size: 45px;
-  color: #000;
-  margin-bottom: 30px;
+  padding-left: 0;
 }
 
+@media (min-width: 768px) {
+  .testimonial-section {
+    padding-left: 100px;
+  }
+}
+
+.testimonial-section .we_stand {
+  font-size: 35px;
+}
+
+@media (min-width: 768px) {
+  .testimonial-section .we_stand {
+    font-size: 45px;
+    color: #000;
+    margin-bottom: 30px;
+  }
+}
 .testimonial_wrap .col-4 {
   display: flex;
   flex-wrap: wrap;
@@ -7784,7 +7802,7 @@ footer a {
   font-weight: bold;
 }
 .health_professional .join_professional {
-  width: 400px;
+  width: 100%;
 }
 
 .health_professional .caption {
@@ -7796,10 +7814,11 @@ footer a {
 }
 
 .health_professional_second {
-  margin: 100px 0 100px 0;
+  margin-top: 100px;
 }
 .health_professional_second .caption {
   padding: 20px;
+  padding-left: 0px;
   font-size: 40px;
 }
 .health_professional_second .get-started {
@@ -8097,7 +8116,6 @@ i.fa.fa-chevron-left {
   font-size: 15px;
 }
 
-
 .schedule.time-picker {
   border: 1px solid #545b62;
   border-radius: 0.25rem;
@@ -8107,7 +8125,7 @@ i.fa.fa-chevron-left {
   color: #545b62;
 }
 
-.schedule.time-picker input[type="text"] {
+.schedule.time-picker input[type='text'] {
   cursor: pointer;
   text-align: center;
 }
@@ -8144,12 +8162,12 @@ i.fa.fa-chevron-left {
   border-bottom: 1px solid rgb(235, 235, 235);
 }
 
-.pro-dropdown .container .item .title{
-  font-size: 1.0rem;
+.pro-dropdown .container .item .title {
+  font-size: 1rem;
   font-weight: 500;
 }
 
-.pro-dropdown .container .item .desc{
+.pro-dropdown .container .item .desc {
   font-size: 0.8rem;
   font-weight: 400;
   color: rgb(113, 113, 113);

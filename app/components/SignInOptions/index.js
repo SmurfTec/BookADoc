@@ -7,9 +7,21 @@ import { Link, history } from 'react-router-dom';
 import makeSelectDoctorLogin from '../../containers/DoctorLogin/selectors';
 import makeSelectPatientLogin from '../../containers/Login/selectors';
 import { getUsername } from '../../utils/helpers';
+import { Box, Divider } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
 
+const useStyles = makeStyles(theme => ({
+  SignInOptions: {
+    width: 185,
+    [`@media (min-width: 768px)`]: {
+      width: 220,
+    },
+  },
+}));
 export function SignInOptions(props) {
   const [user, setUser] = useState({});
+
+  const classes = useStyles();
 
   useEffect(() => {
     const userObj =
@@ -61,44 +73,71 @@ export function SignInOptions(props) {
   );
 
   const Options = () => (
-    <div className="row login_container">
-      <div className="col-sm">
-        <b>Patient</b>
-      </div>
-      <div className="col-sm">
-        <Link className="text-nowrap" to={'/patient/login'}>
-          Log in
-        </Link>
-      </div>
-      <div className="col-sm">
-        <Link className="text-nowrap" to={'/patient/register'}>
-          Sign up
-        </Link>
-      </div>
-      <div className="col-12">
-        <hr
-          style={{
-            border: '1px solid rgba(130, 156, 199, 0.2)',
-            marginTop: '2px',
-            marginBottom: '2px',
-          }}
-        />
-      </div>
-      <div className="col-sm">
-        <b>Professional</b>
-      </div>
-      <div className="col-sm">
-        <Link className="text-nowrap" to={'/pro/login'}>
-          Log in
-        </Link>
-      </div>
-      <div className="col-sm">
-        <Link className="text-nowrap" to={'/pro/register'}>
-          Sign up
-        </Link>
-      </div>
-      <div className="col-12" />
-    </div>
+    <Box
+      className="login_container"
+      display="flex"
+      flexDirection="column"
+      alignItems="flex-end"
+      flexWrap="wrap"
+    >
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="space-between"
+        flexWrap="wrap"
+        className={classes.SignInOptions}
+      >
+        <div>
+          <b>Patient</b>
+        </div>
+        <div>
+          <Link
+            className="text-nowrap"
+            to={'/patient/login'}
+            style={{
+              marginRight: 10,
+            }}
+          >
+            Log in
+          </Link>
+          <Link className="text-nowrap" to={'/patient/register'}>
+            Sign up
+          </Link>
+        </div>
+      </Box>
+      <Divider
+        style={{
+          border: '1px solid rgba(130, 156, 199, 0.2)',
+          marginTop: '2px',
+          marginBottom: '2px',
+        }}
+      />
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="space-between"
+        flexWrap="wrap"
+        className={classes.SignInOptions}
+      >
+        <div>
+          <b>Professional</b>
+        </div>
+        <div>
+          <Link
+            className="text-nowrap"
+            to={'/pro/login'}
+            style={{
+              marginRight: 10,
+            }}
+          >
+            Log in
+          </Link>
+          <Link className="text-nowrap" to={'/pro/register'}>
+            Sign up
+          </Link>
+        </div>
+      </Box>
+    </Box>
   );
 
   return user && Object.keys(user).length > 0 ? <UserLink /> : <Options />;

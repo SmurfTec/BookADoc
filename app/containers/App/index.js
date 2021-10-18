@@ -23,6 +23,7 @@ import {
   PointSpreadLoading,
   ThreeHorseLoading,
 } from 'react-loadingg';
+import './app.css';
 
 const AnonymousRoute = React.lazy(() => import('./routes/AnonymousRoute'));
 const PatientRoute = React.lazy(() => import('./routes/PatientRoute'));
