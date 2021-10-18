@@ -12,11 +12,48 @@ import styled from 'styled-components';
 import { ToastContainer } from 'react-toastify';
 import GlobalStyle from '../../global-styles';
 import 'react-toastify/dist/ReactToastify.css';
+import { Box } from '@material-ui/core';
+import bookLogo from '../../theme/img/landing/bookLogo.png';
+import {
+  CircleLoading,
+  WaveTopBottomLoading,
+  WaveLoading,
+  BlockLoading,
+  RotateCircleLoading,
+  PointSpreadLoading,
+  ThreeHorseLoading,
+} from 'react-loadingg';
 
 const AnonymousRoute = React.lazy(() => import('./routes/AnonymousRoute'));
 const PatientRoute = React.lazy(() => import('./routes/PatientRoute'));
 const ProRoute = React.lazy(() => import('./routes/ProRoute'));
 const LabRoute = React.lazy(() => import('./routes/LabRoute'));
+
+const Loading = () => {
+  switch (Math.floor(Math.random() * 7)) {
+    case 1: {
+      return <CircleLoading />;
+    }
+    case 2: {
+      return <WaveTopBottomLoading />;
+    }
+    case 3: {
+      return <WaveLoading />;
+    }
+    case 4: {
+      return <BlockLoading />;
+    }
+    case 5: {
+      return <RotateCircleLoading />;
+    }
+    case 6: {
+      return <PointSpreadLoading />;
+    }
+    default: {
+      return <ThreeHorseLoading />;
+    }
+  }
+};
 
 const AppWrapper = styled.div`
   margin: 0 auto;
@@ -51,7 +88,27 @@ export default function App() {
       </Helmet>
       <div className="main-wrapper">
         <ToastContainer />
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense
+          fallback={
+            <Box>
+              <img
+                src={bookLogo}
+                height="30"
+                width="100"
+                className="mt-4"
+                alt="BookADoc"
+                style={{
+                  margin: 'auto',
+                  position: 'absolute',
+                  top: '40%',
+                  left: '50%',
+                  transform: 'translate(-50%, -40%)',
+                }}
+              />
+              <Loading />
+            </Box>
+          }
+        >
           {user ? renderLoggedInRoute() : <AnonymousRoute />}
         </Suspense>
         <GlobalStyle />
