@@ -161,8 +161,8 @@ export function LandingPage(props) {
           <div className="col-md-12 search_form mb-5">
             <div className="tab-content">
               <div id="menu1" className="tab-pane fade in active show">
-                <div className="row">
-                  <div className="col-md-5">
+                <div className="row" style={{ margin: 10, padding: 10 }}>
+                  <div className="col-xs-6 col-md-5 ">
                     <div className="row input_container">
                       <div className="col-md-12">
                         <label className="form-control-label">LOCATION</label>
@@ -172,7 +172,10 @@ export function LandingPage(props) {
                       </div>
                     </div>
                   </div>
-                  <div className="col-md-5" onClick={handleProfessionClick}>
+                  <div
+                    className="col-xs-6 col-md-5"
+                    onClick={handleProfessionClick}
+                  >
                     <div className="row input_container">
                       <div className="col-md-12">
                         <label className="form-control-label">I NEED A:</label>
@@ -195,7 +198,7 @@ export function LandingPage(props) {
                       </div>
                     </div>
                   </div>
-                  <div className="col-md-2">
+                  <div className="col-xs-12 col-md-2" style={{ margin: 0 }}>
                     {/* <Link
                       to={
                         '/search?' + buildAddress() +
@@ -210,6 +213,7 @@ export function LandingPage(props) {
                       href="javascript:void(0);"
                       onClick={handleSearchClick}
                       className="btn search_btn"
+                      style={{ minWidth: '7rem' }}
                     >
                       <i className="fa fa-search"> </i> Search
                     </a>
@@ -220,7 +224,7 @@ export function LandingPage(props) {
                 <div className="row">
                   <div className="col-md-3">
                     <div className="row input_container">
-                      <div className="col-md-12">
+                      <div className=" col-md-12">
                         <label className="form-control-label">LOCATION</label>
                       </div>
                       <div className="col-md-12">

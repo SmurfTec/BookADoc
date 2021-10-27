@@ -79,6 +79,11 @@ export function SignInOptions(props) {
       flexDirection="column"
       alignItems="flex-end"
       flexWrap="wrap"
+      style={{
+        boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px',
+        padding: '1rem',
+        borderRadius: 10,
+      }}
     >
       <Box
         display="flex"
