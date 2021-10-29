@@ -437,7 +437,9 @@ export function Search(props, context) {
       return;
     }
 
-    const { professional } = data;
+    const { professional, isLuxury } = data;
+
+    console.log(`professional`, professional);
 
     props.bookAppointment(
       {
@@ -452,6 +454,7 @@ export function Search(props, context) {
           doctorLongitude: professional.lng,
           doctorRate: professional.rate,
         },
+        isLuxury,
       },
       toast,
     );
@@ -475,6 +478,7 @@ export function Search(props, context) {
   };
 
   const onBookingConfirmationClose = data => {
+    console.log(`data`, data);
     if (data) {
       handleBookAppointment(data);
     }

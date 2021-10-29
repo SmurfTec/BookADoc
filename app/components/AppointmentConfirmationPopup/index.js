@@ -5,6 +5,9 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import moment from 'moment';
 
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 import GeolocationPickerWrapper from '../GeolocationPickerWrapper';
 
 function AppointmentConfirmationPopup(props) {
@@ -13,6 +16,16 @@ function AppointmentConfirmationPopup(props) {
   const [showMap, setShowMap] = useState(true);
   const [item, setItem] = useState(data);
   const [geolocation, setGeolocation] = useState(data && data.geolocation);
+
+  const [isLuxury, setIsLuxury] = useState(false);
+
+  const toggleLuxury = () => {
+    setIsLuxury(st => !st);
+  };
+
+  const handleChange = event => {
+    setState({ ...state, [event.target.name]: event.target.checked });
+  };
 
   useEffect(() => {
     setOpen(show);
@@ -41,6 +54,7 @@ function AppointmentConfirmationPopup(props) {
     onClose({
       ...item,
       geolocation: geolocation || item.geolocation,
+      isLuxury,
     });
   };
 
@@ -99,6 +113,19 @@ function AppointmentConfirmationPopup(props) {
               <dt className="col-sm-4">Booking Date</dt>
               <dd className="col-sm-8">
                 {moment(data.bookingTime).format('DD MMM YYYY hh:mm a')}
+              </dd>
+              <dd className="col-sm-8">
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={isLuxury}
+                      onChange={toggleLuxury}
+                      name="isLuxury"
+                      color="primary"
+                    />
+                  }
+                  label="Is Luxury"
+                />
               </dd>
               <dt className="col-sm-4">Your Location</dt>
               <dd className="col-sm-8">
