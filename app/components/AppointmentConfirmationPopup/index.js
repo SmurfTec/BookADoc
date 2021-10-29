@@ -20,6 +20,16 @@ function AppointmentConfirmationPopup(props) {
 
   useEffect(() => {
     setItem(data || {});
+    if (!data) return;
+    if (geolocation) {
+      geolocation.addr;
+    } else {
+      if (data.geolocation.addr) {
+        data.geolocation.addr;
+      } else {
+        fetchAddress(data.geolocation);
+      }
+    }
   }, [data]);
 
   const handleClose = () => {
@@ -92,11 +102,13 @@ function AppointmentConfirmationPopup(props) {
               </dd>
               <dt className="col-sm-4">Your Location</dt>
               <dd className="col-sm-8">
-                {geolocation ? geolocation.addr : (data.geolocation.addr ? data.geolocation.addr : fetchAddress(data.geolocation))}
+                {geolocation}
+                {/* {geolocation ? geolocation.addr : (data.geolocation.addr ? data.geolocation.addr : fetchAddress(data.geolocation))} */}
+                {/* {geolocation && geolocation} */}
                 {/* <a href="#" onClick={handleLocationClick}>
                   {geolocation ? geolocation.addr : data.geolocation.addr}
                   {'  '} <i className="fa fa-pencil" />
-                </a> */}
+          </a>*/}
               </dd>
               <div className="offset-sm-4 col-sm-8">
                 {showMap && (
