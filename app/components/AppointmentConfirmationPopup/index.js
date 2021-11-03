@@ -24,7 +24,7 @@ function AppointmentConfirmationPopup(props) {
   };
 
   const handleChange = event => {
-    setState({ ...state, [event.target.name]: event.target.checked });
+    setIsLuxury(st => event.target.checked);
   };
 
   useEffect(() => {
@@ -51,6 +51,7 @@ function AppointmentConfirmationPopup(props) {
   };
 
   const handleOK = () => {
+    console.log(`isLuxury`, isLuxury);
     onClose({
       ...item,
       geolocation: geolocation || item.geolocation,
@@ -119,7 +120,7 @@ function AppointmentConfirmationPopup(props) {
                   control={
                     <Switch
                       checked={isLuxury}
-                      onChange={toggleLuxury}
+                      onChange={handleChange}
                       name="isLuxury"
                       color="primary"
                     />

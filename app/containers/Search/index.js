@@ -440,6 +440,7 @@ export function Search(props, context) {
     const { professional, isLuxury } = data;
 
     console.log(`professional`, professional);
+    console.log(`isLuxury`, isLuxury);
 
     props.bookAppointment(
       {
