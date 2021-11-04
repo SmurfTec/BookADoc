@@ -4,6 +4,7 @@ const getUsername = (role, name) => {
   if (name) {
     if (role.toLowerCase() === 'doctor') return `Dr. ${name}`;
     if (role.toLowerCase() === 'physiotherapist') return `PT. ${name}`;
+    if (role.toLowerCase() === 'patient') return `Patient. ${name}`;
     return name;
   }
   return '';

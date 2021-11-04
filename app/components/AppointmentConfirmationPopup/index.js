@@ -126,7 +126,7 @@ function AppointmentConfirmationPopup(props) {
                         color="primary"
                       />
                     }
-                    label="Is Luxury"
+                    label="Home Visit"
                   />
                 )}
               </dd>

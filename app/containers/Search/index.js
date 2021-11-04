@@ -51,6 +51,7 @@ const ROLES = {
   DOCTOR: 'DOCTOR',
   NURSE: 'NURSE',
   PHYSIOTHERAPIST: 'PHYSIOTHERAPIST',
+  LAB: 'LAB',
 };
 
 let specialtyTimeoutHandler = 0;
@@ -660,7 +661,7 @@ export function Search(props, context) {
                     </div>
                   </div>
 
-                  {/* <div className="filter-widget">
+                  <div className="filter-widget">
                     <h4>Speciality</h4>
                     <div>
                       <input
@@ -673,7 +674,7 @@ export function Search(props, context) {
                         onChange={onSpecialtyChange}
                       />
                     </div>
-                  </div> */}
+                  </div>
 
                   <div className="filter-widget">
                     <h4>I want a</h4>
@@ -716,8 +717,19 @@ export function Search(props, context) {
                         <span className="checkmark" /> Physiotherapist
                       </label>
                     </div>
+                    <div>
+                      <label className="custom_check">
+                        <input
+                          type="checkbox"
+                          name="select_specialist"
+                          checked={selectedRoles.includes(ROLES.LAB)}
+                          onChange={e => onRoleChecked(e, ROLES.LAB)}
+                        />
+                        <span className="checkmark" /> Lab Test
+                      </label>
+                    </div>
                   </div>
-                  {/*<div className="btn-search">
+                  {/* <div className="btn-search">
                     <button
                       type="button"
                       onClick={e => getUsers(true)}
@@ -725,7 +737,7 @@ export function Search(props, context) {
                     >
                       Search
                     </button>
-                  </div>*/}
+                  </div> */}
                 </div>
                 <div className="card-footer text-right">
                   <h6>
