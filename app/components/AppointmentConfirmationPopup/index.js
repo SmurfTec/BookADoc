@@ -116,17 +116,19 @@ function AppointmentConfirmationPopup(props) {
                 {moment(data.bookingTime).format('DD MMM YYYY hh:mm a')}
               </dd>
               <dd className="col-sm-8">
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={isLuxury}
-                      onChange={handleChange}
-                      name="isLuxury"
-                      color="primary"
-                    />
-                  }
-                  label="Is Luxury"
-                />
+                {data.professional.isLuxury && (
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={isLuxury}
+                        onChange={handleChange}
+                        name="isLuxury"
+                        color="primary"
+                      />
+                    }
+                    label="Is Luxury"
+                  />
+                )}
               </dd>
               <dt className="col-sm-4">Your Location</dt>
               <dd className="col-sm-8">

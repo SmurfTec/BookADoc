@@ -105,6 +105,7 @@ function AppointmentTableRow(props) {
         {convertMillisToDate(appointmentRow.appointmentDate)}{' '}
         {/* <span className="d-block text-info">10.00 AM</span> */}
       </td>
+      <td>{appointmentRow.isLuxury ? 'Home' : 'Hospital'}</td>
       {/* <td>General</td>
       <td>New Patient</td>
       <td className="text-center">$150</td> */}
