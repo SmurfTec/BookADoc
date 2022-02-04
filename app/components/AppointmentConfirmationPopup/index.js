@@ -4,6 +4,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import moment from 'moment';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 
 import GeolocationPickerWrapper from '../GeolocationPickerWrapper';
 
@@ -13,6 +16,11 @@ function AppointmentConfirmationPopup(props) {
   const [showMap, setShowMap] = useState(true);
   const [item, setItem] = useState(data);
   const [geolocation, setGeolocation] = useState(data && data.geolocation);
+  const [showGeoLocation, setShowGeoLocation] = useState('');
+  const [isLuxury, setIsLuxury] = useState(false);
+  const toggleIsLuxury = event => {
+    setIsLuxury(st => event.target.checked);
+  };
 
   useEffect(() => {
     setOpen(show);
@@ -20,6 +28,15 @@ function AppointmentConfirmationPopup(props) {
 
   useEffect(() => {
     setItem(data || {});
+    if (!data) return;
+    if (geolocation) {
+      geolocation.addr;
+    } else if (data.geolocation.addr) {
+      data.geolocation.addr;
+    } else {
+      console.log('fetching address');
+      fetchAddress(data.geolocation);
+    }
   }, [data]);
 
   const handleClose = () => {
@@ -31,6 +48,7 @@ function AppointmentConfirmationPopup(props) {
     onClose({
       ...item,
       geolocation: geolocation || item.geolocation,
+      isLuxury,
     });
   };
 
@@ -46,6 +64,18 @@ function AppointmentConfirmationPopup(props) {
       addr: location.address,
     });
   };
+  useEffect(() => {
+    console.log('geolocation', geolocation);
+    if (geolocation) {
+      setShowGeoLocation(geolocation.addr);
+    } else {
+      if (data && data.geolocation && data.geolocation.addr) {
+        setShowGeoLocation(data.geolocation.addr);
+      } else if (data && data.geolocation) {
+        fetchAddress(data.geolocation);
+      }
+    }
+  }, [geolocation]);
 
   const fetchAddress = location =>
     new google.maps.Geocoder().geocode(
@@ -90,9 +120,30 @@ function AppointmentConfirmationPopup(props) {
               <dd className="col-sm-8">
                 {moment(data.bookingTime).format('DD MMM YYYY hh:mm a')}
               </dd>
+              <dd className="col-sm-8">
+                {data.professional.isLuxury && (
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={isLuxury}
+                        onChange={toggleIsLuxury}
+                        name="isLuxury"
+                        color="primary"
+                      />
+                    }
+                    label="Home Visit"
+                  />
+                )}
+              </dd>
               <dt className="col-sm-4">Your Location</dt>
               <dd className="col-sm-8">
-                {geolocation ? geolocation.addr : (data.geolocation.addr ? data.geolocation.addr : fetchAddress(data.geolocation))}
+                {showGeoLocation}
+
+                {/* {geolocation
+                  ? geolocation.addr
+                  : data.geolocation.addr
+                  ? data.geolocation.addr
+                  : fetchAddress(data.geolocation)} */}
                 {/* <a href="#" onClick={handleLocationClick}>
                   {geolocation ? geolocation.addr : data.geolocation.addr}
                   {'  '} <i className="fa fa-pencil" />
