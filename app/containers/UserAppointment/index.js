@@ -26,7 +26,16 @@ import Avatar from '../../images/Avatar.png';
 export function UserAppointments(props) {
   useInjectReducer({ key: 'userAppointments', reducer });
   useInjectSaga({ key: 'bookAppointments', saga });
-  const { history, user, userAppointments, bookAppointment, fromTime, showLogInPopup, showBookingConfirmationPopup, geolocation } = props;
+  const {
+    history,
+    user,
+    userAppointments,
+    bookAppointment,
+    fromTime,
+    showLogInPopup,
+    showBookingConfirmationPopup,
+    geolocation,
+  } = props;
 
   const [userRow, setUserRow] = useState({});
   const [selectedDate, setSelectedDate] = useState(
@@ -83,6 +92,8 @@ export function UserAppointments(props) {
         return;
       }
 
+      console.log(`user`, user);
+
       showBookingConfirmationPopup({
         bookingTime: selectedSlot,
         geolocation,
@@ -92,6 +103,7 @@ export function UserAppointments(props) {
           lat: user.latitude,
           lng: user.longitude,
           rate: user.consultationFee,
+          isLuxury: user.isLuxury,
         },
       });
     } else {
@@ -268,12 +280,14 @@ export function UserAppointments(props) {
                 </div>
               </div>
               <a
-              href="#"
-              className="apt-btn mt-5"
-              onClick={onBookAppointmentClick}
-              disabled={userAppointments.saving}
+                href="#"
+                className="apt-btn mt-5"
+                onClick={onBookAppointmentClick}
+                disabled={userAppointments.saving}
               >
-                {selectedSlot && userAppointments.saving ? 'Booking...' : 'Book Appointment'}
+                {selectedSlot && userAppointments.saving
+                  ? 'Booking...'
+                  : 'Book Appointment'}
               </a>
             </div>
           </div>
@@ -303,7 +317,9 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
-export default withRouter(compose(
-  withConnect,
-  memo,
-)(UserAppointments));
+export default withRouter(
+  compose(
+    withConnect,
+    memo,
+  )(UserAppointments),
+);

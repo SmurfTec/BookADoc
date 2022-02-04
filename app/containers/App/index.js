@@ -14,47 +14,13 @@ import GlobalStyle from '../../global-styles';
 import 'react-toastify/dist/ReactToastify.css';
 import { Box } from '@material-ui/core';
 import bookLogo from '../../theme/img/landing/bookLogo.png';
-import {
-  CircleLoading,
-  WaveTopBottomLoading,
-  WaveLoading,
-  BlockLoading,
-  RotateCircleLoading,
-  PointSpreadLoading,
-  ThreeHorseLoading,
-} from 'react-loadingg';
+import { PointSpreadLoading } from 'react-loadingg';
 import './app.css';
 
 const AnonymousRoute = React.lazy(() => import('./routes/AnonymousRoute'));
 const PatientRoute = React.lazy(() => import('./routes/PatientRoute'));
 const ProRoute = React.lazy(() => import('./routes/ProRoute'));
 const LabRoute = React.lazy(() => import('./routes/LabRoute'));
-
-const Loading = () => {
-  switch (Math.floor(Math.random() * 7)) {
-    case 1: {
-      return <CircleLoading />;
-    }
-    case 2: {
-      return <WaveTopBottomLoading />;
-    }
-    case 3: {
-      return <WaveLoading />;
-    }
-    case 4: {
-      return <BlockLoading />;
-    }
-    case 5: {
-      return <RotateCircleLoading />;
-    }
-    case 6: {
-      return <PointSpreadLoading />;
-    }
-    default: {
-      return <ThreeHorseLoading />;
-    }
-  }
-};
 
 const AppWrapper = styled.div`
   margin: 0 auto;
@@ -106,7 +72,7 @@ export default function App() {
                   transform: 'translate(-50%, -40%)',
                 }}
               />
-              <Loading />
+              <PointSpreadLoading />
             </Box>
           }
         >

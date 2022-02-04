@@ -26,7 +26,8 @@ export function* bookAppointmentApi(action) {
       email: userData.email,
       sessionToken,
       bookingMode: 'walk-in',
-      isLuxury: userData.isLuxury,
+      // isLuxury: userData.isLuxury,
+      // isLuxury: isLuxury,
       // appointmentLattitude: userData.latitude,
       // appointmentLongitude: userData.longitude,
       // placeName: userData.locationName,
@@ -36,7 +37,8 @@ export function* bookAppointmentApi(action) {
     const response = yield call(postUtil, url, payload);
     if (response.data.status === true && response.data.statusCode === 200) {
       //sending appointment email
-      const email_api_url = 'https://bookadoc.online/healtafrique_appointment_email.php';
+      const email_api_url =
+        'https://bookadoc.online/healtafrique_appointment_email.php';
       yield call(postUtil, email_api_url, payload);
 
       yield put(bookAppointmentSuccessAction(response.data));

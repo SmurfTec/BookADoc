@@ -51,6 +51,7 @@ const ROLES = {
   DOCTOR: 'DOCTOR',
   NURSE: 'NURSE',
   PHYSIOTHERAPIST: 'PHYSIOTHERAPIST',
+  LAB: 'LAB',
 };
 
 let specialtyTimeoutHandler = 0;
@@ -88,7 +89,9 @@ export function Search(props, context) {
   });
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
-  const [geolocation, setGeolocation] = useState(paramObj.location || localGeolocation);
+  const [geolocation, setGeolocation] = useState(
+    paramObj.location || localGeolocation,
+  );
   const [languages, setLanguages] = useState([]);
   const [language, setLanguage] = useState(params.language || '');
   const [listIndex, setListIndex] = useState(params.listIndex || 0);
@@ -435,21 +438,28 @@ export function Search(props, context) {
       return;
     }
 
-    const { professional } = data;
+    const { professional, isLuxury } = data;
 
-    props.bookAppointment({
-      bookingTime: data.bookingTime,
-      appointmentLattitude: data.geolocation.lat,
-      appointmentLongitude: data.geolocation.lng,
-      placeName: data.geolocation.addr,
-      doctorInfo: {
-        hiredDoc: professional.email,
-        doctorName: professional.name,
-        doctorLatitude: professional.lat,
-        doctorLongitude: professional.lng,
-        doctorRate: professional.rate,
+    console.log(`professional`, professional);
+    console.log(`isLuxury`, isLuxury);
+
+    props.bookAppointment(
+      {
+        bookingTime: data.bookingTime,
+        appointmentLattitude: data.geolocation.lat,
+        appointmentLongitude: data.geolocation.lng,
+        placeName: data.geolocation.addr,
+        doctorInfo: {
+          hiredDoc: professional.email,
+          doctorName: professional.name,
+          doctorLatitude: professional.lat,
+          doctorLongitude: professional.lng,
+          doctorRate: professional.rate,
+        },
+        isLuxury,
       },
-    }, toast);
+      toast,
+    );
   };
 
   const showLogInPopup = () => {
@@ -461,18 +471,24 @@ export function Search(props, context) {
   };
 
   const showBookingConfirmationPopup = data => {
+    console.log(`data`, data);
+
     setBookingConfirmationData(data);
-    setShowBookingConfirmation(true);
+    setTimeout(() => {
+      setShowBookingConfirmation(true);
+    }, 1000);
   };
 
   const onBookingConfirmationClose = data => {
-    if(data) {
+    console.log(`data`, data);
+    if (data) {
       handleBookAppointment(data);
     }
     setShowBookingConfirmation(false);
   };
 
-  let userCounts = users && users.filter(user => user.status !== 'BANNED').length;
+  let userCounts =
+    users && users.filter(user => user.status !== 'BANNED').length;
 
   const renderUsers = () => {
     const obj = paramObj.deserialize();
@@ -516,14 +532,15 @@ export function Search(props, context) {
               </nav>
               <h2 className="breadcrumb-title">
                 <p className="text-center">
-                {/* {props.search.loading
+                  {/* {props.search.loading
                   ? (userCounts ? `${userCounts} providers` : 'Loading providers...')
                   : (userCounts ? `${userCounts} providers` : 'No providers available at the moment')
                 } */}
-                {props.search.loading
-                  ? 'Loading providers...'
-                  : (userCounts ? `${userCounts} providers` : 'No providers available at the moment')
-                  }
+                  {props.search.loading
+                    ? 'Loading providers...'
+                    : userCounts
+                    ? `${userCounts} providers`
+                    : 'No providers available at the moment'}
                 </p>
               </h2>
             </div>
@@ -644,7 +661,7 @@ export function Search(props, context) {
                     </div>
                   </div>
 
-                  {/* <div className="filter-widget">
+                  <div className="filter-widget">
                     <h4>Speciality</h4>
                     <div>
                       <input
@@ -657,7 +674,7 @@ export function Search(props, context) {
                         onChange={onSpecialtyChange}
                       />
                     </div>
-                  </div> */}
+                  </div>
 
                   <div className="filter-widget">
                     <h4>I want a</h4>
@@ -700,8 +717,19 @@ export function Search(props, context) {
                         <span className="checkmark" /> Physiotherapist
                       </label>
                     </div>
+                    <div>
+                      <label className="custom_check">
+                        <input
+                          type="checkbox"
+                          name="select_specialist"
+                          checked={selectedRoles.includes(ROLES.LAB)}
+                          onChange={e => onRoleChecked(e, ROLES.LAB)}
+                        />
+                        <span className="checkmark" /> Lab Test
+                      </label>
+                    </div>
                   </div>
-                  {/*<div className="btn-search">
+                  {/* <div className="btn-search">
                     <button
                       type="button"
                       onClick={e => getUsers(true)}
@@ -709,7 +737,7 @@ export function Search(props, context) {
                     >
                       Search
                     </button>
-                  </div>*/}
+                  </div> */}
                 </div>
                 <div className="card-footer text-right">
                   <h6>
@@ -748,10 +776,12 @@ export function Search(props, context) {
       </div>
       {/* /Page Content */}
       <Footer />
-      <SignInPopup
-        show={showSignInPopup}
-        onClose={onSignInPopupClose} />
-      <AppointmentConfirmationPopup show={showBookingConfirmation} data={bookingConfirmationData} onClose={onBookingConfirmationClose}/>
+      <SignInPopup show={showSignInPopup} onClose={onSignInPopupClose} />
+      <AppointmentConfirmationPopup
+        show={showBookingConfirmation}
+        data={bookingConfirmationData}
+        onClose={onBookingConfirmationClose}
+      />
     </>
   );
 }

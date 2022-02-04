@@ -59,6 +59,7 @@ export function DoctorAppointments(props) {
           <tr>
             <th>Patient Name</th>
             <th>Appt Date</th>
+            <th>Visit</th>
             {/* <th>Purpose</th>
             <th>Type</th> */}
             {/* <th className="text-center">Paid Amount</th> */}

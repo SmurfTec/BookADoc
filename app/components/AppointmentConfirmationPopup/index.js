@@ -4,10 +4,10 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import moment from 'moment';
+
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
-
 import GeolocationPickerWrapper from '../GeolocationPickerWrapper';
 
 function AppointmentConfirmationPopup(props) {
@@ -19,6 +19,14 @@ function AppointmentConfirmationPopup(props) {
   const [showGeoLocation, setShowGeoLocation] = useState('');
   const [isLuxury, setIsLuxury] = useState(false);
   const toggleIsLuxury = event => {
+    setIsLuxury(st => event.target.checked);
+  };
+
+  const toggleLuxury = () => {
+    setIsLuxury(st => !st);
+  };
+
+  const handleChange = event => {
     setIsLuxury(st => event.target.checked);
   };
 
@@ -34,7 +42,7 @@ function AppointmentConfirmationPopup(props) {
     } else if (data.geolocation.addr) {
       data.geolocation.addr;
     } else {
-      console.log('fetching address');
+      // console.log('fetching address');
       fetchAddress(data.geolocation);
     }
   }, [data]);
@@ -45,6 +53,7 @@ function AppointmentConfirmationPopup(props) {
   };
 
   const handleOK = () => {
+    // console.log(`isLuxury`, isLuxury);
     onClose({
       ...item,
       geolocation: geolocation || item.geolocation,
@@ -57,7 +66,7 @@ function AppointmentConfirmationPopup(props) {
   // };
 
   const onLocationChange = location => {
-    console.log('location: ', location);
+    // console.log('location: ', location);
     setGeolocation({
       lat: location.position.lat,
       lng: location.position.lng,
@@ -96,7 +105,7 @@ function AppointmentConfirmationPopup(props) {
             });
           }
         } else {
-          console.error(status);
+          // console.error(status);
         }
       },
     ) || '';
@@ -126,7 +135,7 @@ function AppointmentConfirmationPopup(props) {
                     control={
                       <Switch
                         checked={isLuxury}
-                        onChange={toggleIsLuxury}
+                        onChange={handleChange}
                         name="isLuxury"
                         color="primary"
                       />
@@ -147,7 +156,7 @@ function AppointmentConfirmationPopup(props) {
                 {/* <a href="#" onClick={handleLocationClick}>
                   {geolocation ? geolocation.addr : data.geolocation.addr}
                   {'  '} <i className="fa fa-pencil" />
-                </a> */}
+          </a>*/}
               </dd>
               <div className="offset-sm-4 col-sm-8">
                 {showMap && (
